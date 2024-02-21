@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .task-list {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .task-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .task-list li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .task-list input[type="text"] {
+            width: 70%;
+        }
+        .task-list button {
+            width: 20%;
+            cursor: pointer;
+        }
+        .task-list .user-list {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .task-list .user-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .task-list .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Tarefas</h1>
+
+    <div class="task-list">
+        <div class="user-list">
+            <div class="user-header">Usuário 1</div>
+            <input type="text" id="taskInputUser1" placeholder="Nova tarefa">
+            <button onclick="addTask('taskInputUser1', 'user1Tasks')">Adicionar</button>
+            <ul id="user1Tasks"></ul>
+        </div>
+
+        <div class="user-list">
+            <div class="user-header">Usuário 2</div>
+            <input type="text" id="taskInputUser2" placeholder="Nova tarefa">
+            <button onclick="addTask('taskInputUser2', 'user2Tasks')">Adicionar</button>
+            <ul id="user2Tasks"></ul>
+        </div>
+    </div>
+
+    <script>
+        function addTask(inputId, listId) {
+            var input = document.getElementById(inputId);
+            var taskText = input.value.trim();
+
+            if (taskText !== "") {
+                var list = document.getElementById(listId);
+                var listItem = document.createElement("li");
+                
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.onclick = function () {
+                    toggleCompleted(this);
+                };
+
+                listItem.appendChild(checkbox);
+                listItem.appendChild(document.createTextNode(taskText));
+                list.appendChild(listItem);
+
+                // Limpar o campo de entrada
+                input.value = "";
+            }
+        }
+
+        function toggleCompleted(checkbox) {
+            var listItem = checkbox.parentNode;
+            listItem.classList.toggle("completed", checkbox.checked);
+        }
+    </script>
+
+</body>
+</html>
